@@ -1,54 +1,29 @@
-// import inquirer from "inquirer";
+#! /usr/bin/env node
+import inquirer from "inquirer"
 
-// let todos = [];
-// let codition = true;
+let todoList = [];
+let condition = true;
 
-// let addTask = inquirer.prompt([
-//     {
-//         name: "todo",
-//         type: "input",
-//         message: "What you want to add in your ToDos?",
-//     },
-//     {
-//         name: "addMore",
-//         type: "confirm",
-//         message: "Would you like to add more?",
-//         default: "false",
-//     }
-// ]);
-// todos.push (addTask.todo);
-// condition = addTask.addMore;
-// console.log(todos);
-
-import inquirer from "inquirer";
-
-async function addTodo() {
-  let todos = [];
-
-  while (true) {
-    const addTask = await inquirer.prompt([
-      {
-        name: "todo",
-        type: "input",
-        message: "What do you want to add to your to-do list? : ",
-      },
-      {
-        name: "addMore",
-        type: "confirm",
-        message: "Would you like to add more? : ",
-        default: "false",
-      },
+while (condition){
+    let addTask = await inquirer.prompt([
+        {
+            name: "task",
+            type: "input",
+            message: "Enter your task : ",
+        }
     ]);
+    todoList.push(addTask.task);
+    console.log(`${addTask.task} Task added in Todo-List successfully`);
+    
+    let addMoreTask = await inquirer.prompt([
+        {
+            name: "addmore",
+            type: "confirm",
+            message: "Do you want to add more task? ",
+            default: false,
+        }
+    ])
+    condition = addMoreTask.addmore;
 
-    todos.push(addTask.todo);
-
-    if (!addTask.addMore) {
-      break;
-    }
-  }
-
-  console.log("Your to-do list:");
-  console.log(todos.join("\n"));
 }
-
-addTodo();
+console.log("Your updated Todo-List:" , todoList);
